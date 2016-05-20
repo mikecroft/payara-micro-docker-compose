@@ -1,0 +1,47 @@
+version: '2'
+services:
+  micro1:
+    image: payara/micro:162
+    ports:
+     - "1080:8080"
+    volumes:
+     - ./payara-micro/deployments:/opt/payara/deployments
+    entrypoint:
+     - java
+     - -jar
+     - /opt/payara/payara-micro.jar
+     - --deploymentDir
+     - /opt/payara/deployments
+    depends_on:
+     - db
+    links:
+     - db
+  micro2:
+    image: payara/micro:162
+    ports:
+     - "2080:8080"
+    volumes:
+     - ./payara-micro/deployments:/opt/payara/deployments
+    entrypoint:
+     - java
+     - -jar
+     - /opt/payara/payara-micro.jar
+     - --deploymentDir
+     - /opt/payara/deployments
+    depends_on:
+     - db
+    links:
+     - db
+  db:
+    image: mysql
+    volumes:
+      - "./mysql/data:/var/lib/mysql"
+    restart: always
+    container_name: db
+    expose:
+     - "3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+      MYSQL_DATABASE: jdays
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test 
