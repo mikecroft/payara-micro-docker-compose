@@ -16,18 +16,16 @@ services:
      - db
     links:
      - db
-  micro2:
-    image: payara/micro:162
+  payara-full:
+    image: payara/server-full:162
     ports:
      - "2080:8080"
     volumes:
-     - ./payara-micro/deployments:/opt/payara/deployments
+     - ./payara-micro/deployments:/opt/payara41/glassfish/domains/domain1/autodeploy
     entrypoint:
-     - java
-     - -jar
-     - /opt/payara/payara-micro.jar
-     - --deploymentDir
-     - /opt/payara/deployments
+     - /opt/payara41/bin/asadmin
+     - start-domain
+     - -v
     depends_on:
      - db
     links:
