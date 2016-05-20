@@ -1,0 +1,5 @@
+*.swp
+mysql/
+.autodeploystatus
+*.war_deployed
+*_deployFailed
