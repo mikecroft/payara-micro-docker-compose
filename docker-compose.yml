@@ -32,6 +32,34 @@ services:
      - db
     links:
      - db
+  wildfly:
+    image: payara/micro:162
+    ports:
+     - "3080:8080"
+    volumes:
+     - ./wildfly:/opt/payara/deployments
+    entrypoint:
+     - java
+     - -jar
+     - /opt/payara/deployments/JDays2016-WildFlySwarm-1.0-SNAPSHOT-swarm.jar
+    depends_on:
+     - db
+    links:
+     - db
+  spring-boot:
+    image: payara/micro:162
+    ports:
+     - "4080:8080"
+    volumes:
+     - ./spring-boot/:/opt/payara/deployments
+    entrypoint:
+     - java
+     - -jar
+     - /opt/payara/deployments/JDays2016-SpringBoot-1.0-SNAPSHOT.jar
+    depends_on:
+     - db
+    links:
+     - db
   db:
     image: mysql
     volumes:
