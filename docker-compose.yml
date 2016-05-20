@@ -24,3 +24,13 @@ services:
      - /opt/payara/payara-micro.jar
      - --deploymentDir
      - /opt/payara/deployments
+  payara-full:
+    build: ./payara-server-full
+    ports:
+     - "3080:8080"
+    volumes:
+     - ./payara-micro/deployments:/opt/payara41/glassfish/domains/domain1/autodeploy
+    entrypoint:
+     - /opt/payara41/bin/asadmin
+     - start-domain
+     - -v
