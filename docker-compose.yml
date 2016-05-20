@@ -1,0 +1,26 @@
+version: '2'
+services:
+  micro1:
+    image: payara/micro:162
+    ports:
+     - "1080:8080"
+    volumes:
+     - ./payara-micro/deployments:/opt/payara/deployments
+    entrypoint:
+     - java
+     - -jar
+     - /opt/payara/payara-micro.jar
+     - --deploymentDir
+     - /opt/payara/deployments
+  micro2:
+    image: payara/micro:162
+    ports:
+     - "2080:8080"
+    volumes:
+     - ./payara-micro/deployments:/opt/payara/deployments
+    entrypoint:
+     - java
+     - -jar
+     - /opt/payara/payara-micro.jar
+     - --deploymentDir
+     - /opt/payara/deployments
